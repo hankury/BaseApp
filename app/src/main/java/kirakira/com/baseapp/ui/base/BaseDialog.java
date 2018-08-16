@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.RelativeLayout;
 
-public class BaseDialog extends DialogFragment {
+public class BaseDialog extends DialogFragment implements MvpDialog {
     private BaseActivity mActivity;
 
     @Override
@@ -67,10 +67,6 @@ public class BaseDialog extends DialogFragment {
         show(transaction, tag);
     }
 
-    public void dismissDialog(String tag) {
-        dismiss();
-        getBaseActivity().onFragmentDetached(tag);
-    }
 
     public BaseActivity getBaseActivity() {
         return mActivity;
@@ -96,5 +92,11 @@ public class BaseDialog extends DialogFragment {
         if (mActivity != null) {
             mActivity.showLoading();
         }
+    }
+
+    @Override
+    public void dismissDialog(String tag) {
+        dismiss();
+        getBaseActivity().onFragmentDetached(tag);
     }
 }
