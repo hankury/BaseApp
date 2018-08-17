@@ -21,6 +21,8 @@ import com.mikepenz.fastadapter.listeners.ClickEventHook;
 import com.mikepenz.fastadapter_extensions.items.ProgressItem;
 import com.mikepenz.fastadapter_extensions.scroll.EndlessRecyclerOnScrollListener;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,6 +42,7 @@ public class MovieFragmentImp extends BaseFragment implements MovieFragment {
     private ItemAdapter<ProgressItem> footer;
     private FastAdapter fastAdapter;
     private MoviePresenterImp moviePresenterImp;
+    private EndlessRecyclerOnScrollListener onScrollListener;
 
     public static MovieFragmentImp newInstance() {
         Bundle args = new Bundle();
@@ -100,20 +103,19 @@ public class MovieFragmentImp extends BaseFragment implements MovieFragment {
     }
 
     private void loadMore() {
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(footer) {
+        onScrollListener = new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore(int currentPage) {
                 footer.clear();
                 footer.add(new ProgressItem().withEnabled(false));
-                // Load your items here and add it to FastAdapter
-                Log.e("Current", currentPage + "");
                 moviePresenterImp.getMovie(AppConstants.MOVIE_API_KEY_TMDB, currentPage + 1);
+
             }
-        });
+        };
+        recyclerView.addOnScrollListener(onScrollListener);
     }
 
     private void filter() {
-
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -128,6 +130,11 @@ public class MovieFragmentImp extends BaseFragment implements MovieFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 itemAdapter.filter(edtSearch.getText().toString().toLowerCase());
+                if (edtSearch.getText().length() != 0) {
+                    footer.clear();
+                } else {
+                    footer.add(new ProgressItem().withEnabled(false));
+                }
 
             }
         });
