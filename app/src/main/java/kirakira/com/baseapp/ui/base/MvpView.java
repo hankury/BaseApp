@@ -6,4 +6,10 @@ public interface MvpView {
     void showMessage(String message);
 
     void showMessage(@StringRes int resId);
+
+    void showLoading();
+
+    void hideLoading();
+
+    boolean isNetworkConnected();
 }

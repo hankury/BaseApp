@@ -1,5 +1,6 @@
 package kirakira.com.baseapp.ui.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -12,10 +13,12 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import kirakira.com.baseapp.utils.CommonUtils;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements MvpView {
     private BaseActivity mActivity;
     private Unbinder binder;
+    private ProgressDialog mProgressDialog;
 
     public abstract
     @LayoutRes
@@ -42,8 +45,8 @@ public abstract class BaseFragment extends Fragment {
         View mRootView = null;
         if (mRootView == null) {
             mRootView = LayoutInflater.from(container.getContext()).inflate(getLayoutId(), container, false);
-            binder = ButterKnife.bind(this, mRootView);
         }
+        binder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -56,21 +59,57 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init(view, savedInstanceState);
+        init(savedInstanceState);
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (binder != null) {
             binder.unbind();
         }
+        super.onDestroy();
+
     }
 
-    protected abstract void init(View view, Bundle savedInstanceState);
+    public void setBinder(Unbinder binder) {
+        this.binder = binder;
+    }
+
+    protected abstract void init(Bundle savedInstanceState);
 
     public BaseActivity getBaseActivity() {
         return mActivity;
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void showMessage(int resId) {
+
+    }
+
+    @Override
+    public void showLoading() {
+        hideLoading();
+        mProgressDialog = CommonUtils.showLoadingDialog(this.getContext());
+    }
+
+    @Override
+    public void hideLoading() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
+    }
+
+    @Override
+    public boolean isNetworkConnected() {
+        if (mActivity != null) {
+            return mActivity.isNetworkConnected();
+        }
+        return false;
     }
 
     public interface Callback {

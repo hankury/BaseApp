@@ -21,10 +21,11 @@ public class AppConstants {
 
     public static final String MOVIE_API_KEY_TMDB = "0032af3df47158d76407feeae1199880";
 
+    public static final String MOVIE_API_KEY_TMDB_2 = "?api_key=0032af3df47158d76407feeae1199880&language=en-US&page=1";
+
     public static final String MOVIE_URL_IMG_BASE = "https://image.tmdb.org/t/p/w500";
 
-    public static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3";
-
+    public static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/";
 
 
     private AppConstants() {

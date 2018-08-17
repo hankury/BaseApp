@@ -29,6 +29,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
     @LayoutRes
     int getLayoutId();
 
+    public abstract void init();
+
 
     public void hideKeyboard() {
         View view = this.getCurrentFocus();
@@ -75,6 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         binder = ButterKnife.bind(this);
+        init();
     }
 
     @Override
