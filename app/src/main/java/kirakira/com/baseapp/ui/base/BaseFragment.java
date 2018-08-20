@@ -19,6 +19,7 @@ public abstract class BaseFragment extends Fragment implements MvpView {
     private BaseActivity mActivity;
     private Unbinder binder;
     private ProgressDialog mProgressDialog;
+    private View mRootView;
 
     public abstract
     @LayoutRes
@@ -42,7 +43,7 @@ public abstract class BaseFragment extends Fragment implements MvpView {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mRootView = null;
+        mRootView = null;
         if (mRootView == null) {
             mRootView = LayoutInflater.from(container.getContext()).inflate(getLayoutId(), container, false);
         }

@@ -27,6 +27,8 @@ public class AppConstants {
 
     public static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/";
 
+    public static final String MOVIE_DETAIL_KEY = "movie_detail_key";
+
 
     private AppConstants() {
         // This utility class is not publicly instantiable

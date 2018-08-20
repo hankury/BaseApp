@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kirakira.com.baseapp.ui.moviedb.model.Movie;
+import kirakira.com.baseapp.ui.moviedb.model.MovieDetailResponse;
 import kirakira.com.baseapp.ui.moviedb.model.MovieResponse;
 import kirakira.com.baseapp.ui.moviedb.model.MovieResult;
 import kirakira.com.baseapp.ui.moviedb.service.MovieService;
 import kirakira.com.baseapp.ui.moviedb.view.MovieFragment;
+import kirakira.com.baseapp.utils.AppConstants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +62,33 @@ public class MoviePresenterImp implements MoviePresenter {
 
                     @Override
                     public void onFailure(Call<MovieResponse> call, Throwable t) {
+                        try {
+                            throw new InterruptedException("Something went wrong!");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getMovieDetail(int movieId, String apiKey) {
+        movieFragment.showLoadings();
+        movieService.getAPI()
+                .getMovieDetail(movieId, apiKey)
+                .enqueue(new Callback<MovieDetailResponse>() {
+                    @Override
+                    public void onResponse(Call<MovieDetailResponse> call, Response<MovieDetailResponse> response) {
+                        MovieDetailResponse detailResponse = response.body();
+                        if (detailResponse != null) {
+                            movieFragment.hideLoadings();
+                            movieFragment.showMovieDetail(detailResponse);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MovieDetailResponse> call, Throwable t) {
+                        movieFragment.hideLoadings();
                         try {
                             throw new InterruptedException("Something went wrong!");
                         } catch (InterruptedException e) {
