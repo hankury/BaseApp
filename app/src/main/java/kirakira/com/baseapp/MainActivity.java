@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import butterknife.BindView;
+import kirakira.com.baseapp.ui.anim.AnimFragment;
 import kirakira.com.baseapp.ui.base.BaseActivity;
 import kirakira.com.baseapp.ui.moviedb.view.MovieFragmentImp;
 
@@ -19,7 +20,7 @@ public class MainActivity extends BaseActivity {
     public void init() {
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction()
-                .replace(R.id.container, MovieFragmentImp.newInstance())
+                .replace(R.id.container, AnimFragment.newInstance())
                 .commit();
     }
 }

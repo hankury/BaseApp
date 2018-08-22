@@ -4,5 +4,6 @@
     <!--play store-->
     <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
     <string name="app_market_link">"market://details?id="</string>
+    <string name="app_template">Mới đây, hai nhà mạng của Đức đã tiết lộ rằng Apple sẽ cho phép đặt trước các mẫu iPhone 2018 từ ngày 14/9.\nThông thường, Apple cho phép khách đặt hàng iPhone trong vòng hai ngày sau khi ra mắt chính thức vì thế suy ra iPhone 2018 có thể ra mắt vào ngày 12/9.\nVà nếu mọi thứ diễn ra theo lịch trình hàng năm của Apple, các mẫu iPhone năm nay sẽ chính thức lên kệ tại một số thị trường từ ngày 21/9.</string>
 
 </resources>

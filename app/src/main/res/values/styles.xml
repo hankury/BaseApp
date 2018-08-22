@@ -9,4 +9,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.PopupOverlay" parent="android:Theme.Holo.Light">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
 </resources>
